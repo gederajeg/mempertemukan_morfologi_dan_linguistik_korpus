@@ -1,0 +1,456 @@
+---
+title: "Mempertemukan Morfologi dan Linguistik Korpus:\nKajian Konstruksi Pembentukan kata kerja [*per*+Ajektiva] dalam Bahasa Indonesia^[Makalah ini diajukan sebagai bagian dari buku persembahan dalam rangka purnabakti Prof. Dr. Aron Meko Mbete. Pelajaran berharga yang penulis petik ketika menjadi mahasiswa Prof. Aron adalah semangat untuk mengasyiki linguistik dan berinovasi tentang hal-hal baru, seperti yang beliau wujudkan dalam mengembangkan Ekolinguistik di Indonesia. Apabila makalah ini sedikitnya dianggap mencerminkan semangat Prof. Aron tersebut, salah satu tujuan makalah ini telah tercapai.]"
+author: "Gede Primahadi Wijaya Rajeg dan I Made Rajeg"
+date: 
+output:
+  html_notebook:
+    fig_caption: true
+    fig_width: 6
+    toc: true
+    toc_float: true
+    number_sections: yes
+    code_folding: hide
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+    code_folding: hide
+  bookdown::word_document2:
+    fig_caption: true
+    fig_width: 6
+bibliography: 'My Library.bib'
+link-citations: true
+csl: 'apa-old-doi-prefix.csl'
+---
+
+```{r global-options, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(fig.width=6, 
+                      fig.asp=0.618,
+                      fig.retina = 2,
+                      dpi=300,
+                      echo=TRUE)
+options(figcap.prefix = "Figure", figcap.sep = ":", figcap.prefix.highlight = "**")
+options(tabcap.prefix = "Table", tabcap.sep = ":", tabcap.prefix.highlight = "**")
+
+suppressMessages(library(tidyverse))
+suppressMessages(library(readxl))
+suppressMessages(library(stringr))
+suppressMessages(library(bookdown))
+rm(list = ls())
+load('memper_leipzig_main_data.RData')
+```
+
+
+<sup>&copy;</sup> 2017 [Gede Primahadi Wijaya Rajeg](https://figshare.com/authors/Gede_Primahadi_Wijaya_Rajeg/1234749) 
+<a itemprop="sameAs" content="https://orcid.org/0000-0002-2047-8621" href="https://orcid.org/0000-0002-2047-8621" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0002-2047-8621</a>
+<br>[I Made Rajeg](https://figshare.com/authors/I_Made_Rajeg/4052377)  <a itemprop="sameAs" content="https://orcid.org/0000-0001-8989-0203" href="https://orcid.org/0000-0001-8989-0203" target="orcid.widget" rel="noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">orcid.org/0000-0001-8989-0203</a>
+
+Sitiran:
+
+Rajeg, G. P. W., & Rajeg, I. M. (2017). Mempertemukan morfologi dan linguistik korpus: Kajian konstruksi pembentukan kata kerja [*per*-+Ajektiva] dalam Bahasa Indonesia. In I. N. Sudipa & M. S. Satyawati (Ed.), *Rona Bahasa: Buku persembahan kepada Prof. Dr. Aron Meko Mbete memasuki masa purnatugas* (pp. 288–327). Denpasar, Bali, Indonesia: Swasta Nulus. https://doi.org/10.4225/03/5a0627de02453
+
+----------------
+
+# Abstract {-}
+
+This contribution presents a corpus-based, constructional account on one of the derivational morphological constructions for causative transitive verbs in Indonesian, i.e. [*per-*+ADJ] schema; the schema expresses a schematic meaning of 'to cause the object to have more of the characteristics denoted by the adjectival root'. Based on the *Indonesian Leipzig Corpora*, this study shows that the schema exhibits a low productivity, based on its type frequency and *hapax/token ratio*. Its low productivity is further evidenced at the level of the semantic subschemas of the construction, despite identifying a significantly strong and positive correlation between the established types per semantic subschemas and their *hapax*. Data for the conventionalised, prototypical instantiations of the schema, which can be useful for foreign learners of Indonesian, is also presented.  
+
+**Keywords**: *Indonesian*, *Corpus Linguistics*, *Usage-based Linguistics*, *Construction Grammar*, *Construction Morphology*, *Morphological productivity*
+
+-------------------
+
+# Pengantar {#intro}
+
+Makalah ini^[Lisensi untuk R Notebook ini adalah *Creative Common License* [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).] mengulas beberapa unsur kajian morfologi yang dapat dilakukan dan diungkap melalui Linguistik Korpus (LKorp) [mis. @baayen_corpus_2009; @stefanowitsch_corpus_2017, hal. 276]. Sebagai contoh awal, satu konstruksi yang akan dikaji adalah skema konstruksional pembentukan kata kerja transitif kausatif di Bahasa Indonesia (BInd), yaitu [*per*+Ajektiva] (selanjutnya disingkat [*per*+AJ]). Kata kerja kausatif yang mencontohkan skema ini secara skematis memiliki fungsi/makna 'meningkatkan ciri atau sifat, seperti yang dinyatakan oleh ajektivanya, yang (sudah) dimiliki oleh objek' [@sneddon_indonesian_2010, hal. 103] ([sub-bagian \@ref(sneddon)](#sneddon) memberikan pemaparan lebih jauh terkait skema ini). Terdapat tiga hal yang akan coba dijelajahi dengan metode LKorp terkait penggunaan skema [*per-*+AJ] dalam korpus.
+
+Perihal pertama ([sub-bagian \@ref(produktivitas)](#produktivitas)) berkaitan dengan __jumlah tipe__ kata (*type frequency*) yang mencontohkan skema [*per*+AJ] yang bisa ditemukan dalam korpus BInd. Jumlah tipe suatu skema morfologis menandai tingkat __produktifitas terwujud__ (*realised productivity*) skema tersebut pada satu masa pemakaian suatu bahasa [@baayen_corpus_2009, hal. 904; @hilpert_constructional_2013, hal. 128; @hilpert_construction_2014, hal. 81]. Sehubungan dengan jumlah tipe skema [*per*+AJ], kajian ini juga akan mengukur jumlah tipe yang hanya __muncul satu kali__ dalam korpus; bentuk ini diistilahkan dengan __*hapax legomenon*__^[Baayen [-@baayen_corpus_2009, hal. 905-906] mengungkapkan bahwa *hapax legomena* tidak bisa disamakan dengan __neologisme__, atau __kata baru__. Di satu sisi, sekumpulan *hapax* bisa mengandung neologisme; di sisi lain, *hapax* di dalam suatu korpus yang cukup besar pun bisa merupakan kata-kata yang telah ada sejak lama, tapi hanya kebetulan muncul sekali di dalam korpus yang dikaji.] [@hilpert_constructional_2013, hal. 128; @hilpert_construction_2014, hal. 82]. 
+
+*Hapax* berhubungan dengan __produktifitas potensial__ dari suatu skema konstruksional morfologis [@baayen_corpus_2009, hal. 905-906]. Produktifitas potensial ini diukur dengan membagi jumlah *hapax* dengan kekerapan kemunculan skemanya [@hilpert_constructional_2013, hal. 128], atau yang dikenal dengan *hapax/token ratio* (HTR). HTR menggambarkan peluang suatu skema pembentukan kata guna berkembang, atau produktif digunakan, menghasilkan bentukan-bentukan baru pada pemakaian skema tersebut ke depannya [@hilpert_construction_2014, hal. 82; @hilpert_constructional_2013, hal. 128]. Rentangan nilai HTR adalah antara 0 (tidak ada *hapax*) dan 1^[Atau 0-100% apabila nilai HTR diubah menjadi persentase.] (semua tipe pencontohannya adalah *hapax*); Nilai HTR yang mendekati 0 memperkecil kemungkinan menemukan bentukan baru dari skema morfologis tersebut [@hilpert_constructional_2013, hal. 129, 132, Table 4.1]. Jumlah tipe dan *hapax* akan dibahas pada [sub-bagian \@ref(produktivitas)](#produktivitas).
+
+Perihal kedua ([sub-bagian \@ref(tipesemantis)](#tipesemantis)) menyangkut skema-skema bawahan (*subschemas*) dari skema [*per-*+AJ] dalam kaitannya dengan tipe semantis yang mengisi tempat Ajektiva di dalam skema tersebut. Persebaran jumlah tipe dan *hapax* terkait skema-skema bawahan semantis ini juga akan dijabarkan. Salah satu hal yang dapat diukur dari penjabaran tersebut adalah kaitan antara (i) jumlah tipe kata dari suatu tipe skema bawahan semantis, yang sebelumnya telah diketahui oleh seorang penutur bahasa, dan (ii) perluasan tipe skema bawahan semantis serupa yang mencakup dua hal, yaitu (i) pembentukan kata baru serta (ii) keberterimaan (dalam hal memahami) bentukan kata baru tersebut dari skema bawahan semantis yang sama [@zeschel_exemplars_2010, hal. 202; @hoffmann_usage-based_2013, hal. 6]. 
+
+Berkaitan dengan perihal kedua, khususnya keberterimaan, perihal ketiga ([sub-bagian \@ref(cic)](#cic)) membahas __kekerapan kemunculan/pemakaian__ (*token frequency*) skema [*per*+AJ] dalam korpus melalui kata yang mencontohkannya. Data ini akan dapat membantu menentukan kata berskema [*per-*+AJ] yang sering muncul secara keseluruhan dalam korpus. Dalam hal representasi kognitif, data kekerapan dapat menjadi salah satu cerminan kelaziman dan keterpatrian kata tersebut dalam khasanah kebahasaan pemakai BInd [@bybee_language_2010, hal. 29; @hoffmann_usage-based_2013]. [Sub-bagian \@ref(cic)](#cic) akan menunjukkan bagaimana hubungan antara __kekerapan kemunculan__ dan __jumlah tipe__ dapat digunakan untuk mengukur ambang batas keterpatrian dan kelaziman pencontohan suatu skema konstruksional.
+
+Ada tiga tujuan utama yang ingin dicapai oleh makalah ini. Sub-bagian berikut mengulas ketiga tujuan tersebut secara lebih rinci.
+
+## Tujuan metodologis {#tujuanmetodologis}
+
+Makalah ini dimaksudkan untuk membangkitkan minat peneliti bahasa di Indonesia untuk mengenali lebih jauh metode Linguistik Korpus (Kuantitatif) (LKorp). Tidak bisa dipungkiri bahwa LKorp setakat ini berkembang begitu pesat menjadi unsur metodologis termutakhir di dalam penelitian kebahasaan, khususnya dalam lingkup Linguistik Kognitif (LKog) dan Tatabahasa Konstruksional, seperti *Construction Grammar* (CxG) dan *Cognitive Grammar* (CG) [@glynn_quantitative_2010; @janda_cognitive_2013; @yoon_corpus-based_2016; @croft_radical_2001; @langacker_essentials_2013]. Data kuantitatif yang diperoleh dari korpus dapat diolah untuk mengukur dan menjawab pertanyaan-pertanyaan teoretis secara lebih empiris, selain memberikan pemahaman baru yang belum dijabarkan sebelumnya terkait suatu fenomena kebahasaan. Makalah ini akan menunjukkan beberapa unsur teoretis dari bidang morfologi yang dapat diulas melalui data korpus kuantitatif. Selain itu, makalah ini akan menyampaikan beberapa kendala yang bisa ditemukan di dalam kajian morfologi, utamanya pada BInd, melalui LKorp ([sub-bagian \@ref(kendala)](#kendala)).
+
+Selanjutnya, [sub-bagian \@ref(pengolahan)](#pengolahan) di bawah menunjukkan bagaimana pengolahan data korpus untuk kajian kebahasaan pada masa sekarang ini akan lebih terbantu dengan memahami bahasa pemrograman (*programming language*) untuk pengolahan data (*data science*) secara umum. *R* [@r_core_team_r:_2016-1] adalah salah satu bahasa pemrograman terdepan yang banyak digunakan di dalam kajian kebahasaan saat ini [@baayen_analyzing_2008; @levshina_how_2015; @gries_quantitative_2009; @gries_statistics_2013]. *R* dipandang begitu bermanfaat karena menawarkan satu wadah yang sesuai bagi dua rangkaian utama pengolahan data di dalam LKorp: (i) pengolahan teks dan (ii) analisis statistik. Salah satu unsur terpenting dari *R* selanjutnya adalah bahwa *R* sekaligus menjadi tempat untuk menulis laporan analisis (seperti halnya makalah ini)^[Makalah ini ditulis dan dirampungkan di dalam *RStudio* menggunakan modul *Rmarkdown*. Kode pemrograman, berkas data, dan berkas naskah *Rmarkdown* makalah ini dapat diunduh melalui *figshare*: https://doi.org/10.4225/03/5a0627de02453.] bersamaan dengan kode pemrograman bagi rangkaian analisis tersebut; hal ini bisa dilakukan dengan aplikasi dampingan dari *R*, yaitu *RStudio* [@wickham_r_2017]. Piranti yang ditawarkan oleh *R* tersebut dapat mewujudkan dua hal mendasar dalam tahap pengolahan data termutakhir, yaitu (i) keterbukaan data, dan (ii) keterciptaan-ulang proses analisisnya (*reproducible data analysis*) [@wickham_r_2017].
+
+## Tujuan teoretis {#tujuanteoretis}
+
+Perkembangan pesat kajian kebahasaan berdasarkan Tatabahasa Konstruksional (CxG), utamanya yang menggunakan LKorp [mis. @yoon_corpus-based_2016], lebih banyak muncul pada bahasa-bahasa Indo-Eropa, khususnya Bahasa Inggris. Secara umum, belum banyak kajian-kajian kebahasaan, lebih-lebih morfologi, untuk BInd yang (i) merujuk kepada kajian teoretis kontemporer berbasis penggunaan (*usage-based approach*), seperti LKog dan CxG, dan (ii) yang digabungkan dengan aspek analitis dan metodologis dari LKorp. Secara garis besar, makalah ini turut berkontribusi (i) memperluas kajian di dalam LKog dan CxG atas dasar data BInd, dan (ii) menambah khasanah kajian morfologi (dan sintaksis) yang telah dilakukan sebelumnya, misalnya oleh Arka dan kolega [@arka_linguistic_2009; @arka_reduplication_2009], yang menggabungkan pendekatan Leksikal-Fungsional dan unsur komputasional.
+
+Tujuan teoretis mengkhusus dari makalah ini adalah memberikan gambaran awal unsur-unsur pemakaian dari skema konstruksional pada tataran morfologi pada BInd, khususnya skema konstruksional kata kerja kausatif [*per*+AJ]. Unsur-unsur ini meliputi jumlah tipe dan kekerapan pencontohan skema [*per-*+AJ] serta tipe semantis dari skema tersebut. Kajian terhadap unsur pemakaian tersebut diharapkan dapat memberikan pemaparan teoretis dan konseptual yang lebih empiris dan terukur terkait kelaziman bentukan kata, rentangan semantis, serta produktifitas khususnya skema [*per*+AJ].
+
+## Tujuan praktis {#tujuanpraktis}
+
+Penerapan metode LKorp terhadap kajian morfologi yang akan dicontohkan pada makalah ini dapat memberikan data pemakaian nyata skema konstruksional kata kerja kausatif [*per*+AJ] di BInd. Data ini di antaranya berupa daftar kata-kata yang ditemukan dalam korpus yang mencontohkan skema tersebut. Salah satu kegunaan praktis data-data ini adalah sebagai sumber pengajaran BInd bagi penutur asing yang didasari atas bukti pemakaian nyata **bagaimana** suatu konstruksi atau unit kebahasaan lazimnya digunakan. 
+
+Dengan tidak bermaksud mengesampingkan peran intuisi penutur asli terkait **keberterimaan** suatu bentukan kata, penulis menganggap intuisi sangat berperan penting pada tahap **memahami** dan **menganalisis/menafsirkan** data, tetapi tidak dalam hal **menciptakan** secara sengaja data kebahasaan untuk tujuan analitis [@janda_quantitative_2013, hal. 3]. Pernyataan ini didasari atas praanggapan pendekatan linguistik berdasar penggunaan (*usage-based linguistics*), yang menjadi salah satu pilar penting dalam LKog dan CxG [@bybee_language_2010; @janda_quantitative_2013, hal. 2-3]. Asas linguistik berdasar penggunaan memandang bahwa pengetahuan kebahasaan seseorang terbentuk dari kejadian-kejadian nyata tindak tutur pemakaian bahasa itu sendiri; dalam hal ini, data penggunaan nyata menjadi perhatian utama di dalam kajian kebahasaan, khususnya di dalam LKog dan CxG [@hoffmann_usage-based_2013]. Singkatnya, data korpus untuk suatu konstruksi pada suatu bahasa dapat dijadikan bukti-bukti yang dapat ditawarkan kepada pelajar BInd; dalam hal ini pelajar diharapkan lebih memahami bagaimana, dan seberapa lazim (bukan **benar-** atau **salah**-nya), suatu unsur ke(tata)bahasaan dipakai oleh pengguna BInd. 
+
+# Kajian pustaka
+## Skema konstruksional [*per-*+AJ] berdasarkan buku tatabahasa Bahasa Indonesia {#sneddon}
+
+Kata kerja yang mencerminkan skema [*per-*+AJ] adalah kata kerja transitif kausatif. Sneddon dkk. [-@sneddon_indonesian_2010, hal. 103] menyatakan bahwa kata kerja kausatif berskema [*per-*+AJ] berbeda dengan kata kerja serupa berskema [Aj+-*kan*]. Pada kata kerja dengan skema [Aj+-*kan*], objeknya dipandang belum memiliki suatu ciri yang dinyatakan oleh ajektiva-nya, namun disebabkan untuk memiliki ciri tersebut. Sebaliknya, acuan makna dari kata kerja berskema [*per-*+AJ] adalah objeknya sudah memiliki suatu ciri tertentu dan kemudian disebabkan untuk memiliki ciri tersebut pada tingkatan yang lebih tinggi. Misalnya, ajektiva **besar** ketika digunakan pada skema [Aj+-*kan*] menjadi **membesarkan** (diatesis aktif) ('membuat sesuatu menjadi besar'), dan pada skema [*per-*+AJ] menjadi **memperbesar** (diatesis aktif) ('membuat sesuatu yang sudah besar menjadi bertambah besar'). 
+
+Sneddon dkk. [-@sneddon_indonesian_2010, hal. 103] menyatakan bahwa sebagian penutur tidak terlalu memperhatikan perbedaan makna yang ditimbulkan oleh kata kerja dari kedua skema tersebut; penulis menganggap ini adalah suatu asumsi yang sangat menarik untuk bisa diujikan tingkat keabsahannya melalui eksperimen. Ditambahkan pula bahwa terdapat ajektiva yang dapat muncul baik dengan skema [*per-*+AJ] dan skema [Aj+*-kan*], namun menyampaikan makna yang berbeda [@sneddon_indonesian_2010, hal. 103]. Salah satu contoh yang diberikan oleh Sneddon dkk. [-@sneddon_indonesian_2010, hal. 103] untuk asumsi tadi adalah perbedaan makna antara **memperpanjang** 'menambah durasi suatu objek' dan **memanjangkan** 'membuat (se)suatu benda fisik bertambah panjang'. Ini juga merupakan asumsi tersendiri yang bisa dikaji dengan membandingkan persebaran kontekts pemakaian kedua afiks tersebut, tentunya berdasarkan data korpus. Selanjutnya, Sneddon dkk. [-@sneddon_indonesian_2010, hal. 103] menunjukkan bahwa terdapat ajektiva yang lazim muncul dengan skema [*per-*+AJ] (mis. **memperkaya**) tapi tidak dengan [Aj+*-kan*] (mis. (?)**mengayakan**); data korpus juga dapat menawarkan jawaban terkait asumsi ini, yang tidak dibahas kali ini. Perhatian utama makalah ini adalah memberikan pemaparan awal berdasarkan korpus terkait pemakaian skema [*per-*+AJ] secara mandiri, khususnya (i) tingkat produktifitas menyeluruhnya pada situasi pemakaian BInd setakat ini, (ii) rentangan semantis dan tingkat produktifitas per skema bawahan semantisnya, serta (iii) pencontohan-pencontohan lazim skema tersebut. 
+
+## Asumsi mendasar Tatabahasa Konstruksional (CxG) {#cxngrammar}
+
+Secara teoretis, makalah ini dilandasi atas pendekatan LKog, khususnya Tatabahasa Konstruksional (*constructionist approaches*) (CxG) [@croft_radical_2001; @langacker_essentials_2013; @goldberg_constructions_2006; @hoffmann_constructionist_2013]^[Ulasan mendalam termutakhir tentang beragam cabang Tatabahasa Konstruksional dapat diperoleh melalui Hoffmann dan Trousdale [-@hoffmann_oxford_2013]]. Pendekatan konstruksional melihat (tata)bahasa sebagai suatu khasanah jejaring konseptual terstruktur yang terdiri atas **konstruksi**, yaitu keberpasangan bentuk-dan-makna, atau unit simbolis. **Bentuk** utamanya dipahami sebagai unsur ortografis atau bunyi; **makna** dipahami sebagai struktur semantis dan pragmatis [@langacker_essentials_2013, hal. 15, 30]. Berikut ini adalah sitiran langsung terkait pemahaman **konstruksi** dari salah satu pakar kunci di dalam CxG:
+
+> *"<span style="font-variant:small-caps;">All levels of grammatical analysis involve constructions: learned pairings of form with semantic or discourse function</span>, including morphemes or words, idioms, partially lexically filled and fully general phrasal patterns. (...) Any linguistic pattern is recognized as a construction as long as some aspect of its form or function is not strictly predictable from its component parts or from other constructions recognized to exist. In addition, patterns are stored as constructions even if they are fully predictable as long as they occur with sufficient frequency."* [@goldberg_constructions_2006, hal. 5, penekanan kapital sesuai aslinya]
+
+Sitiran ini menunjukkan bahwa konstruksi dalam berbagai bentuk dan tingkat keterperinciannya adalah inti dari (analisis khasanah ke)bahasa(an) itu sendiri (Perhatikan [Tabel \@ref(tab:konstruksi)](#konstruksi) berikut). Artinya, tidak ada sekat-sekat yang tegas antara leksikon dan tatabahasa karena semuanya dipandang sebagai konstruksi. Leksikon dan tatabahasa membentuk suatu rentangan yang dibedakan pada tingkat kompleksitas, keterperincian, dan keterpatriannya [@croft_radical_2001, hal. 17; @langacker_essentials_2013, hal. 21-22, 24]. Pandangan konstruksional ini juga mengindikasikan unsur linguistik yang skematis pun, seperti konstruksi sintaksis transitif, tetap menyampaikan makna, meskipun bersifat skematis/abstrak (mis. 'suatu entitas melakukan sesuatu dalam kaitannya dengan entitas yang lain').
+
+```{r konstruksi}
+tribble(~`Karakteristik`, ~`Tipe Konstruksi`, ~Contoh,
+        #----------------/---------------------/---------
+        "Kompleks dan (sepenuhnya) skematis", "Kalimat aktif transitif BInd", "**Putu mempelajari Tatabahasa Konstruksional**",
+        "Kompleks dan (sepenuhnya) spesifik", "Idiom; peribahasa", "buah + `<kata anggota tubuh>` (mis. **buah tangan**, **buah hati**); **Mata-mata**; **takkan lari gunung dikejar**",
+        "Kompleks tapi terikat", "(Pembentukan) kata kompleks", "Pembentukan kata kerja: [Ajektiva+*-kan*] (mis. **panaskan**, **hidupkan**); Pembentukan kata majemuk nominal dengan skema [N + N] (mis. **sate ayam**; **toko buku**)",
+        "Atomis dan spesifik", "Kata/leksikon", "**buku**, **kertas**",
+        "Atomis, spesifik, tapi terikat", "Morfem", "*per-*, *ber-*"
+        ) %>%
+  as.data.frame() %>%
+  knitr::kable(caption='Rentangan leksikon dan tatabahasa dalam CxG (disesuaikan dengan mengacu Croft [-@croft_radical_2001, hal. 17] dan Goldberg [-@goldberg_constructions_2006, hal. 5])^[Salah satu jenis CxG, yaitu *Radical Construction Grammar* (RCxG) utamanya tidak memandang adanya kelas kata, seperti ajektiva dan nomina [@croft_radical_2001, hal. 18].].', row.names = T)
+```
+
+Konstruksi skematis muncul dari **peng-umum-an** (*generalisation*), abstraksi, atau skematisasi, dari sejumlah pemakaian spesifik dan nyata suatu unit kebahasaan; terpatrinya skema konstruksional yang terabstraksi tersebut selanjutnya berperan untuk menuntun pembentukan ekspresi baru dengan skema yang sama [@bybee_language_2010, hal. 26; @langacker_essentials_2013, hal. 24]. Pemahaman ini penting terkait Morfologi Konstruksional yang akan diulas pada [sub-bagian \@ref(cxnmorphology)](#cxnmorphology) berikut. Terkait dengan hal itu, [Tabel \@ref(tab:konstruksi)](#konstruksi) di atas juga menunjukkan bahwa kata kompleks yang terbentuk melalui skema pembentukan kata, seperti **perkuat** yang terdiri dari awalan *per-* dan ajektiva **kuat**, dipandang sebagai konstruksi dengan kompleksitas pada tataran kata [@booij_construction_2010; @langacker_essentials_2013, hal. 24]
+
+Sitiran dari Goldberg di atas juga menonjolkan peran dari kekerapan pemakaian suatu bentuk linguistik untuk dipandang sebagai suatu konstruksi. Artinya, tidak hanya pola konstruksi skematis saja yang tersimpan di dalam kahasanah kebahasaan seseorang; contoh-contoh spesifik dari konstruksi tersebut juga akan tersimpan, dan terpatri pada tingkatan tertentu, sepanjang contoh-contoh spesifik tersebut muncul pada tingkat kekerapan tertentu [periksa @bybee_language_2010, hal. 23-25]. Dengan kata lain, tingkat kekerapan pemakaian suatu konstruksi berkaitan dengan seberapa kuat unit tersebut tersimpan, terpatri, dan melekat dalam khasanah kebahasaan penutur suatu bahasa. Data kekerapan suatu unsur kebahasaan, yang pada dasarnya diperoleh dengan melihat bukti pemakaian bahasa pada korpus, menjadikan LKorp sebagai salah satu penyanding metodologis kunci di dalam kajian CxG [@hoffmann_data_2013] karena secara konseptual terkait dengan, dan dapat meng-operasional-kan, asumsi-asumsi mendasar di dalam CxG khususnya, dan LKog pada umumnya.
+
+## Morfologi dari sudut pandang Tatabahasa Konstruksional (CxG) {#cxnmorphology}
+
+Morfologi Konstruksional [@booij_construction_2017; @booij_construction_2010] memandang pola pembentukan kata, seperti [*per-*+AJ], sebagai suatu **skema konstruksional**. Pola ini dipandang sebagai **skema** karena merupakan **abstraksi/skematisasi** dari hubungan bentuk-dan-makna serangkaian pencontohan spesifik yang telah muncul di dalam suatu bahasa (mis. **per-kuat**, **per-lemah**, dan **per-kokoh** untuk kasus [*per-*+AJ]) [@booij_construction_2010, hal. 544]. Skema ini kemudian menjadi titik tolak untuk membentuk kata baru (mis. **per-ganteng**, **per-kekar**) (periksa [Tabel \@ref(tab:per-semantics-table)](#per-semantics-table)). Selanjutnya, pola seperti [*per-*+AJ] dikatakan **konstruksional** atas dasar hasil skematisasi tersebut juga merupakan keberpasangan bentuk-dan-makna, yaitu **konstruksi** [@booij_construction_2010, hal. 545; @hilpert_construction_2014, hal. 80]. Yang membedakan suatu skema konstruksional, seperti [*per-*+AJ], dengan pencontohannya, misalnya **perkokoh** dan **perbanyak**, adalah tingkat keterperincian unsur bentuk dan maknanya. 
+
+Sebagai contoh lain, pertimbangkan skema pembentukan kata benda deverbal [*pe-*+Verba] pada BInd. Sebagian unsur formal/bentuk dari skema ini, yaitu unsur Verba-nya bersifat skematis/terbuka, sedangkan sebagian lainnya, yaitu unsur awalannya, bersifat spesifik/tetap dan diisi oleh *pe-* (dengan keberagaman alomorfi nasal dari konsonan awal kata kerja yang menjadi dasarnya). Selanjutnya, kutub makna dari skema [*pe-*+Verba] juga bersifat lebih skematis (yang secara abstrak merujuk kepada 'orang yang melakukan sesuatu' seperti dinyatakan oleh kata kerja dasarnya) dibandingkan dengan masing-masing pencontohannya. Makna pencontohan-pencontohan skema [*pe-*+Verba] bersifat lebih terperinci dan tidak sepenuhnya dapat diperkirakan langsung berdasarkan kutub makna dari skema konstruksionalnya. Contohnya, kata **perenang** dan **peneliti** tidak hanya berarti 'orang yang melakukan sesuatu' seperti yang dinyatakan oleh unsur verbanya; penutur BInd umumnya mengetahui bahwa **perenang** bukanlah sembarang 'orang yang berenang', tapi mereka yang memiliki kemampuan untuk berenang secara baik (umumnya atlit). Begitu pun halnya **peneliti** yang bukan sekedar 'orang yang meneliti', tapi mereka yang melakukan penelitian sebagai suatu pekerjaan. 
+
+Bahwa penutur BInd umumnya mengetahui makna lazim kedua kata tersebut, yang melebihi makna skematis skema konstruksionalnya, mengindikasikan ke-konstruksional-an kata-kata tersebut sebagai suatu unit simbolis bentuk-dan-makna yang menjadi bagian dari khasanah pengetahuan ke(tata)bahasaan seorang penutur [@hilpert_construction_2014, hal. 80]. Dengan kata lain, dari sudut pandang CxG, fakta bahwa suatu bentukan kata yang tidak sepenuhnya mewarisi sifat semantis skemanya, hingga sampai pada tingkat idiosinkretik (seperti pada **perenang** dan **peneliti**), tidak semata-mata membuat/membuktikan kata-kata tersebut tersimpan di dalam apa yang disebut dengan **bilik leksikon**; sedangkan kata-kata yang artinya dapat **diprediksi** dan/atau **menuruti aturan** konstruksional skemanya **tidak (perlu) tersimpan** di dalam khasanah kebahasaan (karena cukup sampai pada skema pembentuknya). Melainkan, CxG memandang bahwa semua hal yang penutur ketahui ketika penutur tersebut mengetahui suatu bahasa merupakan bagian dari khasanah kebahasaan penutur tersebut. Khasanah ini terdiri dari jejaring konstruksi, keberpasangan bentuk-dan-makna, yang berbeda pada tataran keterperincian/keskematisan, kompleksitas, dan keterpatriannya (lazim atau baru/novel) [@langacker_essentials_2013, hal. 21; @goldberg_constructions_2006, hal. 5]. 
+
+Jadi, berdasarkan pendekatan linguistik berdasarkan penggunaan (*usage-based linguistics*), penutur akan menyimpan kata-kata spesifik dari suatu pola pembentukan kata, beserta segala rincian kontekstual, formal-struktural, dan semantis dari pemakaian kata tersebut, sepanjang kata-kata spesifik tersebut muncul dengan intensitas yang tinggi/sering [@bybee_language_2010, hal. 24-25; @hilpert_construction_2014, hal. 66-67]; hal ini terlepas dari apakah pola yang mendasari kata-kata tersebut berisifat prediktif/teratur dan tidak idiosinkretik. Hilpert [-@hilpert_construction_2014, hal. 80] menambahkan bahwa peran **konstruksi** yang disematkan pada suatu skema konstruksional morfologis ditandai dengan kemampuan penutur untuk membentuk dan memproses bentukan kata baru berdasarkan skema tersebut.
+
+### Keragaman semantis pencontohan skema konstrukional morfologis {#semanticsubschema}
+
+Pandangan konstruksional bahwa penataan unsur leksikal dan gramatikal didasari atas khasanah yang sama, yaitu jejaring konstruksi yang dihubungkan secara pewarisan (*inheritance*), memungkinkan kajian terhadap keberagaman skema-skema bawahan (*sub-schemas*) dari suatu konstruksi [@trousdale_construction_2016, hal. 69]. Sebagai contoh, skema kata benda deverbal [*pe-*+Verba] yang telah disinggung sebelumnya memiliki beragam jejaring makna, seperti <span style="font-variant:small-caps;">pelaku/agen</span> (**pembeli**), <span style="font-variant:small-caps;">instrumen/alat</span> (**penghapus**), dan <span style="font-variant:small-caps;">penderita</span> (**pesuruh**) [periksa @primahadi-wijaya-r._metonymy_2013, hal. 77, yang mengulas hubungan metonimis terkait pembentukan kata dengan awalan pada BInd.]. Hal ini menunjukkan keberagaman makna dari satu skema [*pe-*+Verba] muncul pada tataran skema bawahannya [@trousdale_construction_2016, hal. 69]; skema bawahan tersebut secara mandiri memiliki batasan-batasan tertentu, baik formal dan semantis, yang tidak dimiliki sepenuhnya oleh pola utamanya [periksa lebih lanjut @booij_construction_2010, hal. 548]. Pada contoh skema [*pe-*+Verba], batasan-batasan skema bawahannya bisa berupa (i) tipe (semantis) kata kerja yang umumnya dipakai di dalam skema tersebut, (ii) transitifitas kata kerja-nya, dan (iii) bagaimana bentukan nomina dengan tipe kata kerja tersebut digunakan di dalam kalimat guna menyampaikan suatu makna tertentu (mis. <span style="font-variant:small-caps;">agen</span>, <span style="font-variant:small-caps;">penderita</span>, dll.), yang dapat bersifat idiosinkretik.
+
+Pada makalah ini, unsur semantis yang akan diulas adalah tipe semantis ajektiva yang digunakan dalam konstruksi [*per*+AJ]. Unsur ini dapat menggambarkan (i) rentangan semantis dari konstruksinya secara umum, dan (ii) distribusi tipe skema bawahan semantis dalam kaitannya dengan jumlah tipe dan *hapax* yang mencontohkan skema-skema bawahan tersebut (lihat [Gambar \@ref(fig:semanticsplot)](#semanticsplot) di bawah).
+
+# Data dan Metodologi
+
+Bagian ini akan memaparkan (i) sumber data yang digunakan serta (ii) langkah-langkah yang dilakukan dalam memperoleh data yang akan dibahas di [Bagian \@ref(hasil)](#hasil). Cakupan lebih banyak akan diberikan pada unsur kedua.
+
+## Sumber data {#korpus}
+
+Data korpus BInd yang digunakan pada makalah ini adalah *Indonesian Leipzig Corpora*. Korpus ini merupakan bagian dari *Leipzig Corpora Collection* [@biemann_leipzig_2007; @quasthoff_indonesian_2013]^[Periksa pranala berikut: http://corpora2.informatik.uni-leipzig.de/download.html] dan dapat diunduh secara cuma-cuma. Korpus BInd ini tersimpan dalam bentuk teks kalimat acak yang dikumpulkan melalui internet. Jumlah kalimat dari masing-masing berkas teks yang saat ini tersedia untuk *Indonesian Leipzig Corpora* ditampilkan pada [Tabel \@ref(tab:leipzig-corpus)](#leipzig-corpus) berikut.
+
+```{r leipzig-corpus}
+corpus_total_words <- leipzig_count %>% .$Size %>% str_replace_all(",", "") %>% as.numeric() %>% sum() %>% format(big.mark=".", decimal.mark=",")
+leipzig_count %>%
+  rename(`Berkas korpus`=Corpus, `Jumlah kata`=Size) %>%
+  mutate(`Jumlah kata`=str_replace_all(`Jumlah kata`, ",", ".")) %>%
+  knitr::kable(caption="Jumlah keseluruhan kata dari masing-masing berkas korpus pada *Indonesian Leipzig Corpora*.", row.names = T)
+```
+
+Ukuran keseluruhan dari tiga belas berkas korpus yang digunakan berjumlah `r corpus_total_words` kata.
+
+## Pengolahan data {#pengolahan}
+### Penggalian kata-kata potensial pencontohan dari skema [*per*+AJ]
+
+Proses pemerolehan data dari korpus dan analisisnya dilakukan sepenuhnya menggunakan sejumlah fungsi yang ada dalam program *R*. Pertama, secara khusus, penulis merancang naskah pemrograman untuk menelusuri kata-kata potensial yang mencontohkan pola [*per*+AJ] pada keseluruhan korpus. Kedua, pencarian dilakukan dengan merancang pola pencarian yang dikenal dengan sebutan *regular expressions* (RegEx) [lihat @wickham_r_2017, hal. 207-207]. RegEx yang disusun adalah sebagai berikut: `\\b(?i)(mem|di|ter)(per+[a-z-]{3,})\\b`. RegEx ini dapat dialihbahasakan menjadi:
+
+> carilah kata-kata (i) yang bisa terdiri atas huruf kecil atau besar^[Hal ini untuk mengantisipasi kemunculan kata di awal kalimat yang diawali dengan huruf kapital (mis. **Mempererat**).], (ii) yang diawali oleh awalan *mem-*, *ter-*, dan *di-*, (iii) yang kemudian diikuti oleh awalan target *per-*, dengan huruf *r* muncul paling sedikit satu kali atau lebih^[Hal ini dilakukan untuk mengantisipasi adanya kata dasar yang diawali huruf *r* namun tidak diluluhkan dengan *r* pada awalan *per-*-nya.] (ditandai dengan `+`), kemudian (iv) diikuti oleh karakter alfabetis dan strip (-)^[Tanda `'-'` diikutkan untuk menangkap kemungkinan adanya reduplikasi, seperti *diperbesar-besar* yang benar-benar muncul dalam korpus.] paling sedikit berjumlah tiga karakter atau lebih (`{3,}`).
+
+Naskah pemrograman yang dirancang juga secara otomatis menghasilkan (i) daftar kata yang berhasil ditangkap oleh RegEx-nya, (ii) frekuensi kemunculannya, dan (iii) nama berkas korpus di mana kata tersebut ditemukan. Hasil ini ditampilkan pada [Tabel \@ref(tab:per-word-corpus)](#per-word-corpus) berikut.
+
+```{r per-word-corpus}
+per_words_corpus %>% arrange(desc(n)) %>% top_n(5,n) %>%
+  rename(Kata=match, `Berkas korpus`=corpus_id, Kekerapan=n) %>%
+  mutate(Kekerapan=format(Kekerapan, big.mark=".", decimal.mark=",")) %>%
+  knitr::kable(caption = "Hasil awal lima teratas dari pencarian kata-kata yang diawali dengan *memper-*, *diper-*, dan *terper-* di dalam korpus.", row.names = T)
+```
+
+Yang penting dicatat adalah RegEx yang dirancang hanya merinci tiga awalan diatesis yang langsung diikuti oleh *per-*, bukan kata dasarnya secara spesifik; calon kata dasarnya secara lebih luas ingin ditangkap dengan karakter alfabetis pada bagian `[a-z-]{3,}` dari pola pencariannya. Karena itulah pada [Tabel \@ref(tab:per-word-corpus)](#per-word-corpus) muncul kata-kata seperti **diperlukan** dan **mempersiapkan** yang tidak termasuk ke dalam bahasan makalah ini.
+
+### Pemecahan struktur morfologis kata dengan *MorphInd*
+
+Untuk mengetahui kata mana yang mencontohkan pola [*per-*+AJ] dari daftar kata pada [Tabel \@ref(tab:per-word-corpus)](#per-word-corpus), penulis menjalankan naskah pemrograman yang disebut *MorphInd* [@larasati_indonesian_2011]. *MorphInd* dirancang untuk membedah struktur internal kata dalam BInd. Program ini dapat juga dijalankan melalui *R*^[Penulis berterima kasih kepada Karlina Denistia (University of Tübingen, Jerman) yang dengan senang hati berbagi contoh menjalankan *MorphInd* melalui *R*.]. Jadi, ketika *MorphInd* diberikan masukan kata seperti **memperkuat**, *MorphInd* akan memecah awalan dan kata dasarnya, sekaligus menandai kelas kata dari kata dasarnya. Keluaran pembedahan kata dari *MorphInd* ditunjukkan pada kolom **`Keluaran MorphInd`** pada [Tabel \@ref(tab:per-adj)](#per-adj) berikut.
+
+```{r per-adj}
+ per_adj %>%
+  top_n(5, n) %>%
+  select(-n) %>%
+  mutate(tag=str_replace_all(tag, "(<.>)", "`\\1`")) %>%
+  rename(Kata=match, `Awalan (diatesis)`=pref, `Kata dasar`=base, `Keluaran *MorphInd*`=tag) %>%
+  knitr::kable(caption = "Nukilan data dari pola [*per*+AJ] yang berhasil dikenali oleh sistem dalam *MorphInd*.", row.names = T)
+```
+
+Yang perlu diperhatikan terkait *MorphInd* adalah program ini belum sepenuhnya mengenali dan membedah kata-kata masukannya. Kata-kata yang tidak dikenali tersebut akan ditandai dengan `<x>`. Perhatikan [Tabel \@ref(tab:per-unknown-tag)](#per-unknown-tag) berikut.
+
+```{r per-unknown-tag, message=FALSE, warning=FALSE}
+read_delim("per_unknown_tag.txt", delim="\t") %>% 
+  filter(per_adj=='y') %>% 
+  sample_n(3) %>%
+  bind_rows(read_delim("per_unknown_tag.txt", delim="\t") %>%
+              filter(is.na(per_adj)) %>%
+              sample_n(2)) %>%
+  select(match, tag) %>%
+  mutate(tag=str_replace_all(tag, "(<.>)", "`\\1`")) %>%
+  rename(Kata=match, `Keluaran *MorphInd*`=tag) %>%
+  knitr::kable(caption = "Nukilan data kata-kata yang tidak dikenali oleh sistem dalam *MorphInd*.", row.names = T)
+```
+
+Untuk kata-kata yang tidak dibedah oleh *MorphInd* ini, penulis memeriksa satu per satu daftar kata-katanya. Tujuannya adalah untuk mengetahui apabila (i) memang terdapat kata yang mencontohkan skema [*per-*+AJ] tetapi belum ada pada sistem *MorphInd*, dan (ii) terdapat kata yang sudah dikenali, seperti **memperkuat**, namun terdapat kesalahan dalam penulisannya di dalam korpus, menjadi **memperkuar**. Data tambahan yang ditemukan dari hasil pemeriksaan mandiri tersebut digabungkan dengan data yang telah berhasil dikenali oleh *MorphInd*; data ini kemudian menjadi dasar pembahasan pada [Bagian \@ref(hasil)](#hasil) berikut. 
+
+### Sejumlah kendala {#kendala}
+
+Selain terdapatnya sejumlah kata yang belum dikenali oleh *MorphInd*, sistem pencarian menggunakan RegEx yang dipaparkan sebelumnya utamanya juga memunculkan beberapa kendala. Salah satu yang penting adalah kemungkinan adanya salah ketik (*typo*), dari pengguna bahasa yang terdapat dalam korpus seperti pada sitiran (@dipersiap) berikut.
+
+(@dipersiap) "Kedua, kesepakatan hukuman terhadap hal-hal yang telah **dipersiap** kan. (ind-id_web_2015_3M:1276562)^[Pada setiap akhir contoh, informasi di dalam tanda kurung berisi (i) nama berkas korpus dan (ii) baris kalimat keberapa pemakaian suatu kata ditemukan; keduanya dipisahkan oleh tanda ":".].
+
+Kata **dipersiap** pada kalimat (@dipersiap) seharusnya tidak dipisahkan oleh spasi dengan akhiran *-kan*. Akhiran ini tidak ditangkap oleh rancangan RegEx karena dirancang agar komputer dapat mengetahui apa yang dimaksud dengan kata: serangkaian karakter alfabetis (atau alfanumerik dan strip) yang dipisahkan oleh spasi. *MorphInd*, akan tetapi, berhasil memecah **dipersiap** pada (@dipersiap) menjadi **`di+per+siap<a>_VSP`**. Dalam hal ini, **dipersiap** pada (@dipersiap) menjadi *false positive*, atau hasil yang berhasil (*positive*) ditangkap sesuai dengan rancangan RegEx, tapi tidak sesuai secara konseptual (*false*) sebagai pencontohan skema [*per*+AJ]. Akan tetapi, terdapat juga kemunculan **dipersiap** yang tampaknya secara penulisan dan konteks pemakaian mencontohkan skema [*per*+AJ], seperti pada sitiran (@dipersiap_oke) berikut:
+
+(@dipersiap_oke) mengingat kegiatan ini adalah kegiatan internasional oleh karenanya harus **dipersiap** lebih matang agar dalam pelaksanaannya nanti berlangsung dengan baik. (ind_mixed_2012_1M:302874)
+
+Bentuk aktif **mempersiap** juga berhasil didapat; sebagian besar di antaranya adalah salah ketik, atau mungkin lebih tepatnya sengaja dipisahkan karena tuntutan aturan (mis. di buku, dsb.) yang mesti memisahkan akhiran dengan kata dasarnya di ujung baris menggunakan strip `"-"` (lihat (@persiap_typo)).
+
+(@persiap_typo) Namun walaupun hal-hal di atas belum terjadi, kita dapat **mempersiap**- kannya dahulu. (ind_web_2012_1M:619478)
+
+Hanya sebagian kecil dari bentuk **mempersiap** yang dapat dianggap sebagai data pencontohan pola [*per*+AJ], seperti pada contoh (@persiap_oke) berikut.
+
+(@persiap_oke) UAS kali ini saya tidak mengalami kesulitan, hal dikarenakan saya sudah **mempersiap** diri dengan seoptimal mungkin. (ind-id_web_2015_3M:1639943)
+
+Sub-bagian ini ingin menampilkan fakta bahwa secanggih apapun tahapan dan piranti yang digunakan untuk mengolah data dalam korpus, terdapat kendala-kendala yang dapat ditemui. Kendala ini, seperti yang telah dicontohkan, bisa muncul dari (i) keadaan ortografis pemakaian bahasa di dalam korpus yang dikaji, misalnya salah ketik, atau (ii) sistem yang digunakan, seperti *MorphInd*, belum mencakup keseluruhan khasanah kata yang mencontohkan suatu skema konstruksional morfologis.
+
+# Hasil dan pembahasan {#hasil}
+```{r produktivitas}
+cxn_sum <- per_adj_base_combined %>% 
+  .$n %>% 
+  sum()
+per_adj_type_freq <- dim(per_adj_base_combined)[1]
+per_adj_hapax <- per_adj_base_combined %>% 
+  filter(n==1) %>% 
+  dim() %>% 
+  .[1]
+per_potential_prod <- per_adj_hapax/cxn_sum
+```
+
+## Produktifitas terwujud dan produktifitas potensial konstruksi [*per-*+AJ] {#produktivitas}
+
+**Jumlah tipe** kata yang mencontohkan suatu skema konstruksional morfologis menjadi salah satu penanda kadar produktifitas skema tersebut [@hilpert_construction_2014, hal. 81]. Untuk skema [*per-*+AJ] secara umum, terdapat `r per_adj_type_freq` tipe kata yang mencontohkan konstruksi tersebut dari `r cxn_sum %>% format(big.mark=".", decimal.mark=",")` kekerapan kemunculan totalnya (lihat [Tabel \@ref(tab:per-semantics-table)](#per-semantics-table) di bawah). Kemunculan `r per_adj_type_freq` tipe kata dari skema [*per-*+AJ] dapat dianggap rendah, mengingat besarnya ukuran korpus yang digunakan kali ini, yaitu berjumlah `r corpus_total_words` kata.
+
+Guna melengkapi pembahasan di atas, akan dipaparkan rasio **produktifitas potensial** dari skema [*per-*+AJ]. Rasio ini didasari atas jumlah *hapax* dari skema tersebut. Skema [*per-*+AJ] memiliki `r per_adj_hapax` tipe *hapax* (atau hanya `r round(per_adj_hapax/per_adj_type_freq*100,2)`%) dari `r per_adj_type_freq` jumlah keseluruhan tipenya. Persentase jumlah *hapax* ini bisa dipandang cukup rendah. Selanjutnya, nilai perbandingan *hapax/token* (HTR) dari skema [*per-*+AJ] juga sangat kecil, yaitu `r per_potential_prod %>% round(5) %>% prettyNum()`; jumlah tipe, *hapax*, dan HTR dari skema [*per-*+AJ] dapat mengindikasikan rendahnya produktifitas skema tersebut, paling tidak berdasarkan data korpus yang dikaji.
+
+Terkait rendahnya kadar produktifitas formal skema [*per-*+AJ] ini, salah satu praanggapan yang bisa diujikan kembali pada penelitian selanjutnya adalah sebagai berikut. Terdapat kemungkinan bahwa konstruksi yang lebih produktif digunakan untuk mengungkapkan makna yang dibawa oleh [*per-*+AJ] (yaitu, 'membuat X menjadi lebih AJ') adalah konstruksi perifrastik, seperti konstruksi kausatif perifrastik [**membuat** X **menjadi lebih** AJ]. Penelitian selanjutnya dapat menguji anggapan ini dengan membandingkan persebaran jumlah ajektiva yang muncul dengan konstruksi kausatif perifrastik [**membuat** X **menjadi lebih** AJ] (dan variasinya) dan skema [*per-*+AJ]. [Sub-bagian \@ref(tipesemantis)](#tipesemantis) berikut melihat lebih dalam produktifitas pada tataran skema bawahan semantis dari skema [*per-*+AJ], sekaligus menampilkan keseluruhan data tipe kata kerja [*per-*+AJ] di dalam korpus (lihat [Tabel \@ref(tab:per-semantics-table)](#per-semantics-table)).
+
+## Skema bawahan semantis skema konstruksional [*per-*+AJ] {#tipesemantis}
+```{r per-semantics-data}
+per_adj_sem <- per_adj_base_combined %>% 
+  group_by(sem) %>% 
+  summarise(n=sum(n), 
+            type=n_distinct(root)) %>%
+  left_join(per_adj_base_combined %>% 
+              filter(n==1) %>% 
+              group_by(sem) %>% 
+              summarise(hapax=n_distinct(root)), by = "sem") %>%
+  mutate(est_type=type-hapax,
+         ttr=round((type/n)*100, 2), 
+         htr=round((hapax/n)*100, 2),
+         htt=round((hapax/type)*100,2)) %>%
+  arrange(desc(n))
+per_adj_sem_type <- tibble()
+for (i in seq_along(per_adj_sem$sem)) {
+  type <- per_adj_base_combined %>% 
+    filter(sem==per_adj_sem$sem[i]) %>% 
+    mutate(words=str_c(str_c(.$root, " (", format(.$n, big.mark=".", decimal.mark=","), ")", sep=""), collapse="; "),
+           words=str_replace_all(words, "(\\()\\s+", "\\1")) %>% 
+    .$words %>% 
+    unique()
+  per_adj_sem_type <- bind_rows(per_adj_sem_type, tibble(sem=per_adj_sem$sem[i], word_types=type))
+}
+per_adj_sem <- left_join(per_adj_sem, per_adj_sem_type, by ="sem")
+rm(per_adj_sem_type)
+```
+
+Sub-bagian ini akan memaparkan skema bawahan semantis konstruksi [*per-*+AJ] atas dasar tipe semantis kata dasar ajektivanya. Acuan untuk pengelompokan tipe semantis ajektiva tersebut mengacu pada kategori yang dibahas oleh Dixon [-@dixon_adjective_2004-1], beserta makalah-makalah di dalam Dixon dan Aikhenvald [-@dixon_adjective_2004]^[Karena semua tipe ajektivanya ditampilkan dalam [Tabel \@ref(tab:per-semantics-table)](#per-semantics-table) di bawah, pembaca dapat tidak setuju terhadap beberapa pengelompokan yang penulis ajukan; masukan untuk pengelompokan tersebut terkait penelitian serupa ke depannya sangat diharapkan.]. 
+
+Mengingat ulasan pada [sub-bagian \@ref(semanticsubschema)](#semanticsubschema) sebelumnya, keberagaman tipe semantis ajektiva yang muncul dengan konstruksi [*per-*+AJ] dapat menjadi dasar munculnya skematisasi lokal dari konstruksi [*per-*+AJ] pada tataran semantis. Dalam hal ini terdapat gugusan skema bawahan semantis (dari skema [*per-*+AJ] utama) yang saling berjejaring [@trousdale_construction_2016, hal. 69]. Dari sudut pandang CxG, jejaring pengetahuan semantis seperti ini, yang terabstraksi dari pencontohan nyata suatu skema konstruksional, juga merupakan bagian dari khasanah kebahasaan seseorang.
+
+[Gambar \@ref(fig:semanticsplot)](#semanticsplot) menampilkan rentangan semantis skema bawahan konstruksi [*per-*+AJ]. Rentangan ini dikaitkan dengan distribusi (dalam persentase) (i) kekerapan, (ii) jumlah tipe kata, dan (iii) jumlah *hapax* dari masing-masing tipe skema bawahan semantis konstruksi [*per-*+AJ].
+
+```{r semanticsplot, fig.cap='Persentase jumlah *hapax*, jumlah tipe, dan kekerapan untuk tiap-tiap skema bawahan semantis konstruksi [*per-*+AJ].', fig.width=9}
+df <- per_adj_sem %>%
+  select(n, type, hapax, sem) %>%
+  mutate(`% kekerapan`=round(n/sum(n)*100, 2),
+         `% jumlah tipe`=round(type/sum(type)*100, 2),
+         `% jumlah hapax`=round(hapax/sum(hapax)*100, 2),
+         sem=replace(sem, sem=='propensitas', 'kecenderungan manusia\n(*human propensity*)'),
+         sem=replace(sem, sem=='ukuran', 'ukuran/dimensi'),
+         sem=replace(sem, sem=='nilai', 'nilai (*value*)')) %>%
+  rename(kekerapan=n, `jumlah tipe`=type, `jumlah hapax`=hapax) %>%
+  select(sem, `% kekerapan`, `% jumlah tipe`, `% jumlah hapax`) %>%
+  gather(key=dist, value=value, -sem) %>%
+  arrange(dist)
+df %>%
+  ggplot(aes(x=reorder(sem, value), y=value, fill=dist)) +
+  geom_col(position = "dodge") +
+  facet_wrap(~dist) +
+  coord_flip() +
+  theme_bw() +
+  scale_fill_grey(start = 0.1, end=0.8) +
+  theme(legend.position = 'none', axis.title = element_text(size=11), axis.text = element_text(size=9)) +
+  labs(x='Tipe semantis', y=NULL, fill=NULL)
+```
+
+Ada beberapa hal yang bisa diperoleh dari data pada [Gambar \@ref(fig:semanticsplot)](#semanticsplot). Pertama, dari segi persentase kekerapan, skema [*per-*+AJ] utama memiliki beberapa skema semantis bawahan yang prototipikal (dalam arti sering muncul di dalam korpus secara keseluruhan) di antara gugusan skema bawahan semantis lainnya. Empat di antaranya adalah <span style="font-variant:small-caps;">ciri_fisik</span> (mis. **kuat**, **parah**), <span style="font-variant:small-caps;">ukuran</span> (**luas**, **panjang**), <span style="font-variant:small-caps;">kesulitan</span> (**mudah**, **lancar**), dan <span style="font-variant:small-caps;">kecepatan</span> (**cepat**, **lambat**). Tingginya kekerapan keempat dimensi semantis ini mengindikasikan bahwa keempat ciri semantis inilah yang derajatnya sering ditingkatkan berdasarkan makna skematis konstruksi kausatif [*per-*+AJ], yaitu 'membuat X menjadi lebih AJ'. Dalam hal ini, skema [*per-*+AJ] dapat digambarkan sebagai suatu jejaring konstruksional [@trousdale_construction_2016, hal. 69-70; @booij_construction_2010, hal. 546-547].
+
+Aspek kedua yang bisa dilihat adalah persentase jumlah tipe dan *hapax* masing-masing tipe semantis. Empat tipe semantis teratas dengan jumlah tipe terbanyak adalah <span style="font-variant:small-caps;">ciri_fisik</span>, <span style="font-variant:small-caps;">kecenderungan manusia</span> (**kaya**, **cantik**, **bodoh**), <span style="font-variant:small-caps;">ukuran</span>, dan <span style="font-variant:small-caps;">nilai</span> (**buruk**, **indah**, **bagus**). Jadi keempat skema bawahan semantis ini, berdasarkan pengukuran proporsi jumlah tipenya sendiri, dapat dikatakan paling produktif dibandingkan dengan skema bawahan semantis lainnya. 
+
+Kemudian, dari segi persentase jumlah *hapax*, skema bawahan <span style="font-variant:small-caps;">kecenderungan manusia</span> memiliki persentase jumlah *hapax* paling banyak, diikuti dengan <span style="font-variant:small-caps;">ciri_fisik</span> dan <span style="font-variant:small-caps;">nilai</span>. Hal ini dapat menunjukkan bahwa pemakaian skema bawahan semantis [*per-*+AJ] bertipe <span style="font-variant:small-caps;">kecenderungan manusia</span> lebih kerap diperluas berdasarkan analogi semantis skemanya [periksa @zeschel_exemplars_2010]. Artinya, penutur mengingat tipe semantis ajektiva yang mencontohkan skema semantis bawahan <span style="font-variant:small-caps;">kecenderungan manusia</span> dan kemudian memperluas pemakaian skema tersebut dengan menggunakan ajektiva baru (yang bisa ditunjukkan oleh jumlah *hapax*-nya) bertipe semantis yang sama (dalam hal ini <span style="font-variant:small-caps;">kecenderungan manusia</span>). 
+
+Akan tetapi, ketika jumlah *hapax* masing-masing tipe semantis dikaitkan dengan kekerapannya dalam pengukuran *hapax/token ratio* (HTR), masing-masing tipe semantis tersebut tidak dapat dikatakan produktif. Hasil penghitungan ini ditampilkan pada [Tabel \@ref(tab:htr-semantics)](#htr-semantics) berikut.
+
+```{r htr-semantics}
+htr_sem <- per_adj_sem %>% arrange(desc(htt)) %>% 
+  mutate(sem=replace(sem, sem=='propensitas', 'kecenderungan manusia (*human propensity*)'),
+         sem=replace(sem, sem=='ukuran', 'ukuran/dimensi'),
+         sem=replace(sem, sem=='nilai', 'nilai (*value*)'),
+         sem=str_c("<span style='font-variant:small-caps;'>", sem, "</span>", sep=""),
+         n=prettyNum(n, big.mark=".", decimal.mark=",")) %>% 
+  select(sem, n, type, hapax, htr, htt) %>% 
+  arrange(desc(hapax))
+htr_sem %>%
+  rename(`Tipe semantis`=sem, Kekerapan=n, `Jumlah tipe`=type, `Jumlah *hapax*`=hapax, `Rasio *hapax*/*token* (%)`=htr, `Rasio *hapax*/tipe (%)`=htt) %>%
+  select(-`Rasio *hapax*/tipe (%)`) %>%
+  knitr::kable(caption = "Rasio *hapax* berbanding kekerapan untuk skema bawahan semantis konstruksi [*per-*+AJ]; data diurutkan berdasarkan jumlah *hapax* terbanyak.", row.names = T)
+```
+
+Hanya tipe semantis `r htr_sem %>% filter(htr > 10) %>% .$sem %>% str_c("<span style='font-variant:small-caps;'>", ., '</span>', sep='') %>% str_c(collapse=' dan ')` yang nilai HTR-nya menunjukkan angka di atas 10%. Artinya, untuk tipe semantis `r htr_sem %>% filter(htr > 10) %>% .[1,] %>% .$sem %>% str_c("<span style='font-variant:small-caps;'>", ., '</span>', sep='')`, `r htr_sem %>% filter(htr > 10) %>% .[1,] %>% .$htr`% dari total kekerapannya adalah *hapax*; narasi serupa digunakan untuk memahami nilai HTR tipe semantis lainnya [@stefanowitsch_corpus_2017, hal. 284]. [Tabel \@ref(tab:per-semantics-table)](#per-semantics-table) berikut menampilkan semua tipe ajektiva mencontohkan skema [*per-*+AJ] yang ditemukan di dalam korpus.
+
+```{r per-semantics-table}
+per_adj_sem %>%
+  arrange(desc(hapax)) %>%
+  mutate(sem=replace(sem, sem=='propensitas', 'kecenderungan manusia (*human propensity*)'),
+         sem=replace(sem, sem=='ukuran', 'ukuran/dimensi'),
+         sem=replace(sem, sem=='kualifikasi', 'kualifikasi (*qualification*)'),
+         sem=replace(sem, sem=='nilai', 'nilai (*value*)'),
+         sem=str_c("<span style='font-variant:small-caps;'>", sem, "</span>", sep=""),
+         n=prettyNum(n, big.mark=".", decimal.mark=",")) %>%
+  select(Semantik=sem, `Kekerapan (N)`=n, `Jumlah tipe`=type, `Jumlah tipe (kekerapan > 1)`=est_type, `Jumlah *hapax*`=hapax, `Ajektiva dasar`=word_types) %>%
+  select(-`Jumlah tipe`, -`Kekerapan (N)`) %>%
+  knitr::kable(caption="Seluruh pencontohan skema [*per-*+AJ] dan skema bawahan semantisnya; data diurutkan berdasarkan jumlah *hapax* terbanyak.", row.names = T)
+```
+
+Salah satu cara untuk melihat hubungan antara (i) jumlah tipe skema [*per-*+AJ] yang telah ada (perhatikan kolom **`Jumlah tipe (kekerapan > 1)`**) dan (ii) jumlah *hapax* dari masing-masing tipe semantis ajektivanya adalah melalui Analisis Korelasi [@zeschel_exemplars_2010, hal. 208]^[Mengikuti Zeschel [-@zeschel_exemplars_2010, hal. 208], metode Analisis Korelasi yang digunakan adalah *Pearson's product moment correlation coefficient*. Penghitungan dilakukan dengan fungsi `cor.test()` yang ada dalam *R*.]. Analisis Korelasi menentukan arah, dan ukuran, hubungan suatu variabel X (mis. jumlah tipe suatu konstruksi yang telah ada) dengan variabel Y (mis. jumlah *hapax* konstruksi tersebut). Arah hubungannya bisa positif atau negatif; sedangkan ukurannya bisa (i) kecil ([+/-]0.1-0.3), (ii) sedang ([+/-]0.3-0.5), dan (iii) tinggi ([+/-]0.5-1) [@zeschel_exemplars_2010, hal. 208]. 
+
+Untuk skema semantis bawahan [*per-*+AJ], terdapat hubungan positif dan kuat antara (i) jumlah tipe yang telah ada untuk skema semantis bawahan [*per-*+AJ] dan (ii) kata-kata *hapax* dari masing-masing tipe skema bawahan semantis tersebut (Korelasi *Pearson's* = `r cor.test(per_adj_sem$est_type, per_adj_sem$hapax) %>% .$estimate %>% round(3)`, *p* = `r cor.test(per_adj_sem$est_type, per_adj_sem$hapax) %>% .$p.value %>% round(3)`). Dengan kata lain, terdapat kaitan antara (i) jumlah tipe kata kerja berskema [*per-*+AJ] dari suatu skema bawahan semantis dan (ii) __perluasan/peningkatan__ penggunaan skema tipe semantis yang sama dengan bentukan kata baru. Artinya, penutur (i) mengingat tipe semantis ajektiva yang sudah ditemuinya digunakan dalam skema [*per-*+AJ] berskema bawahan semantis tertentu, dan kemudian (ii) memperluas pemakaian skema bawahan semantis tersebut (yang bisa ditunjukkan oleh jumlah *hapax*-nya) dengan menggunakan ajektiva baru bertipe semantis yang sama [periksa @zeschel_exemplars_2010]. 
+
+Hubungan positif pada tataran skema bawahan semantis ini mendukung salah satu asumsi mendasar dari CxG bahwa khasanah kebahasaan seseorang tidak hanya menyimpan kriteria formal (bentuk), tapi juga semantis, dari suatu unit kebahasaan, dalam hal ini skema pembentukan kata. Pembahasan pada sub-bagian ini telah menunjukkan bahwa terdapat jejaring keumuman lokal (atas dasar skema semantis bawahan [dari suatu skema konstruksional utama]) yang muncul berdasarkan gugusan penggunaan jumlah tipe dan *hapax* ajektiva yang mirip secara semantis pada skema bawahan konstruksi [*per-*+AJ] [lihat @hoffmann_usage-based_2013, hal. 6-7]. Keterpatrian jejaring gugusan semantis ini secara kuat dipicu oleh ajektiva-ajektiva yang sering muncul untuk suatu tipe semantis (perhatikan [Gambar \@ref(fig:cic-sem-plot)](#cic-sem-plot) selanjutnya). Meskipun demikian, pemakaian skema [*per-*+AJ] beserta skema bawahan semantisnya dalam korpus BInd saat ini memiliki tingkat produktifitas yang rendah, baik yang terwujud (berdasarkan jumlah tipe) ataupun yang potensial (berdasarkan HTR).
+
+```{r type-freq, include=F}
+per_adj_base_combined %>%
+  mutate(cxn_sum=sum(n),
+         frek_per_100K=round(n*10000/cxn_sum, 2),
+         frek_per_100K=format(frek_per_100K, big.mark=".", decimal.mark=","),
+         N=format(n, big.mark=".", decimal.mark=",")) %>%
+  select(root, n, N, frek_per_100K) %>%
+  rename(`Akar kata`=root, `N/10K kata`=frek_per_100K) %>%
+  top_n(30, n) %>%
+  select(-n) %>%
+  knitr::kable(caption="Tiga puluh pencontohan teratas konstruksi [*per-*+AJ].")
+```
+
+## Pencontohan Konstruksi Lazim {#cic}
+```{r cic-calculation}
+per_adj_CIC_limit <- round((per_adj_base_combined %>% 
+                              .$n %>% 
+                              sum()/dim(per_adj_base_combined)[1])*2)
+type_cic <- per_adj_base_combined %>% 
+  filter(n>=per_adj_CIC_limit) %>% 
+  dim() %>% 
+  .[1]
+perc_cic <- round((type_cic/per_adj_type_freq)*100, 2)
+cic_sum <- per_adj_base_combined %>% 
+  filter(n>=per_adj_CIC_limit) %>% 
+  .$n %>% 
+  sum()
+perc_cic_sum <- round((cic_sum/cxn_sum)*100, 2)
+cic_words <- per_adj_base_combined %>% 
+  filter(n>=per_adj_CIC_limit) %>% 
+  mutate(cic=str_c(root, " (", format(n, big.mark=".", decimal.mark=","), ")", sep = ""), 
+         cic=str_replace_all(cic, "(\\()\\s+", "\\1")) %>% 
+  .$cic %>% 
+  str_c(collapse='; ')
+
+per_cic_tibble <- tribble(~`Jumlah tipe [*per-*+AJ]`, ~`Jumlah tipe CIC`, ~`% tipe CIC`, ~`Kekerapan [*per-*+AJ]`, ~`Kekerapan CIC`, ~`% Kekerapan CIC`,
+        #----/-------------------/---------------/------------------------------/----------------/-------------------
+        per_adj_type_freq, type_cic, perc_cic, format(cxn_sum, big.mark = ".", decimal.mark = ","), format(cic_sum, big.mark = ".", decimal.mark = ","), perc_cic_sum
+        )
+```
+
+Perihal terakhir yang ingin diulas di dalam makalah ini adalah kekerapan pencontohan spesifik skema [*per-*+AJ] yang dapat menunjukkan tingkat keterpatrian dan kelaziman pencontohan tersebut. Pertanyaannya adalah bagaimana cara menentukan (ambang batas) derajat kelaziman suatu kata dibandingkan dengan kata lainnya dari suatu konstruksi? 
+
+Vergara Wilson [-@vergara_wilson_categorization_2014, hal. 71-73] mengajukan cara mengukur pencontohan lazim dari suatu konstruksi (*conventionalised instances of constructions*; selanjutnya disingkat CIC). Karena menentukan kelaziman suatu bentukan kata dari suatu konstruksi cenderung bersifat subjektif dan relatif, pengukuran ambang batas CIC (berdasarkan data (bukan intuisi semata)) dapat menjadi tolak ukur awal ketika membandingkan kata-kata mana dari suatu skema konstruksional morfologis yang relatif lebih lazim, dan mana yang tidak begitu lazim. Data seperti ini secara umum bisa dimanfaatkan sebagai bahan pengajaran suatu konstruksi morfologis lazim dan pencontohannya di dalam BInd untuk penutur asing.
+
+Rumus untuk mengukur nilai ambang batas CIC adalah dengan membagi (i) kekerapan kemunculan keseluruhan konstruksinya (*token*), dalam hal ini kemunculan total skema [*per-*+AJ] pada korpus, dengan (ii) jumlah tipenya (*type*), yaitu jumlah kata-kata yang mencontohkan skema [*per-*+AJ] pada korpus; nilai pembagian tersebut kemudian dikalikan 2 [@vergara_wilson_categorization_2014, hal. 73]. Perhatikan rumus ambang batas CIC berikut: 
+
+$CIC = (token/tipe) * 2$ 
+
+Hasil perhitungan dari rumus di atas dibulatkan ke atas/bawah, tergantung kedekatan bilangan setelah koma dengan bilangan keseluruhannya. Menurut Vergara Wilson [-@vergara_wilson_categorization_2014, hal. 73], praanggapan yang mendasari rumus tersebut adalah sebagai berikut. Apabila suatu pencontohan skema [*per-*+AJ], seperti **perkuat**, muncul dua kali lebih banyak dari rata-rata kekerapan kemunculannya, seperti ditunjukkan dari rasio $token/tipe$-nya, bentukan kata tersebut dapat dianggap lazim.
+
+Ambang batas CIC untuk skema [*per-*+AJ] adalah `r per_adj_CIC_limit`, yang merupakan hasil dari (`r cxn_sum %>% format(big.mark=".", decimal.mark=',')` (*token*)/`r per_adj_type_freq` (*type*) `*`2). Jadi, tipe pencontohan skema [*per-*+AJ] yang kekerapan kemunculannya sama dengan atau lebih besar dari `r per_adj_CIC_limit` dapat dikatakan lazim/konvensional [@vergara_wilson_categorization_2014, hal. 73]. Jumlah tipe CIC pada data skema [*per-*+AJ] adalah `r type_cic` jenis kata, seperti yang ditampilkan pada kolom keempat pada [Tabel \@ref(tab:cic-word-types)](#cic-word-types) berikut. 
+
+```{r cic-word-types}
+tibble(`Rasio kekerapan/tipe`=(per_adj_base_combined %>% 
+                                 .$n %>% 
+                                 sum()/dim(per_adj_base_combined)[1]),
+       `Ambang batas CIC`= per_adj_CIC_limit,
+       `Jumlah tipe CIC`=type_cic,
+       `Pencontohan CIC skema [*per-*+AJ]`=cic_words) %>%
+  knitr::kable(caption="Kata-kata lazim pencontohan skema [*per-*+AJ].")
+```
+
+Angka di dalam tanda kurung pada kolom **`Pencontohan CIC skema`** **`[`***__per-__***`+AJ]`** menunjukkan kekerapan kemunculan kata tersebut. [Gambar \@ref(fig:cic-sem-plot)](#cic-sem-plot) berikut menempatkan persebaran tipe kata lazim pada [Tabel \@ref(tab:cic-word-types)](#cic-word-types) sebelumnya berdasarkan tipe semantisnya.
+
+```{r cic-sem-plot, fig.cap="Persebaran tipe semantis dari tipe CIC untuk konstruksi [*per-*+AJ]"}
+df <- per_adj_base_combined %>% 
+  filter(n>=per_adj_CIC_limit) %>% 
+  group_by(sem) %>% 
+  mutate(cic_word=str_c(str_c(root, " (", prettyNum(n, big.mark=".", decimal.mark=","), ")", sep=""), collapse="; ")) %>%
+  ungroup() %>%
+  mutate(sem=replace(sem, sem=='propensitas', 'kecenderungan manusia\n(*human propensity*)'),
+         sem=replace(sem, sem=='ukuran', 'ukuran/dimensi'),
+         sem=replace(sem, sem=='nilai', 'nilai (*value*)')) %>%
+  group_by(sem, cic_word) %>% 
+  summarise(n=sum(n))
+df %>%
+  ggplot(aes(x=reorder(sem, n),y=n)) + 
+  geom_col(fill="black") + 
+  coord_flip() +
+  geom_text(aes(label=cic_word), 
+            hjust=if_else(str_detect(df$cic_word, "luas|kuat"), 1.05, -0.1), 
+            size=3, 
+            colour=if_else(str_detect(df$cic_word, "luas|kuat"), "white", "black")) +
+  theme_bw() +
+  theme(axis.title = element_text(size=11), axis.text = element_text(size=10)) +
+  labs(x='Tipe semantis', y='Kekerapan', fill=NULL)
+```
+
+[Gambar \@ref(fig:cic-sem-plot)](#cic-sem-plot) menunjukkan bahwa <span style="font-variant:small-caps;">ukuran</span> dan <span style="font-variant:small-caps;">ciri_fisik</span> adalah tipe semantis yang kerap muncul di antara kelompok kata-kata yang bisa dianggap lazim untuk skema [*per-*+AJ]. Hal ini dipicu oleh tingginya kekerapan tipe yang mencontohkan kedua tipe semantis tersebut. <span style="font-variant:small-caps;">Ukuran</span> tidak hanya tinggi dalam hal kekerapannya, tapi juga memiliki jumlah tipe lazim terbanyak, jika dibandingkan utamanya dengan <span style="font-variant:small-caps;">ciri_fisik</span>, yang kekerapannya didominasi oleh satu ajektiva, yaitu **kuat**. Selanjutnya, masing-masing kata CIC dari tiap-tiap tipe semantis tersebut dapat dianggap sebagai anggota ajektiva prototipikal yang umum mencontohkan skema bawahan semantis [*per-*+AJ] pada [Gambar \@ref(fig:cic-sem-plot)](#cic-sem-plot). [Tabel \@ref(tab:cic-cxn)](#cic-cxn) selanjutnya menggambarkan tingkat keterpatrian skema [*per-*+AJ] secara lebih luas dalam kaitannya dengan kekerapan pencontohan lazimnya.
+
+```{r cic-cxn}
+per_cic_tibble %>%
+  knitr::kable(caption="Persentase jumlah tipe dan kekerapan skema [*per-*+AJ] yang melampaui ambang batas CIC dalam kaitannya dengan keseluruhan jumlah tipe dan kekerapan skema [*per-*+AJ].")
+```
+
+[Tabel \@ref(tab:cic-cxn)](#cic-cxn) dapat dipahami sebagai berikut. Dari total `r per_adj_type_freq` tipe kata-kata pencontohan skema [*per-*+AJ], hanya `r per_cic_tibble %>% .[,3] %>% unlist() %>% unname()`% (yaitu `r per_cic_tibble %>% .[,2] %>% unlist() %>% unname()` tipe) yang dapat dikatakan cukup lazim; hal ini bersifat relatif karena adanya perbedaan pengalaman setiap penutur BInd terhadap kata-kata yang ada di bawah atau di atas ambang batas CIC pada korpus ini^[Dengan kata lain, bisa saja terdapat kata-kata yang juga dianggap lazim dan seharusnya masuk (secara intuisi) ke dalam kelompok CIC; yang perlu diperhatikan adalah rumus CIC digunakan untuk dapat **mengukur** secara lebih empiris berdasarkan data kuantitatif yang diperoleh dari korpus.]. Meskipun proporsi `r per_cic_tibble %>% .[,3] %>% unlist() %>% unname()`% untuk jumlah tipe CIC ini cukup kecil, yang perlu diperhatikan adalah `r per_cic_tibble %>% .[,6] %>% unlist() %>% unname()`% kekerapan kemunculan skema [*per-*+AJ] di keseluruhan korpus terdiri dari pengulangan ke-`r per_cic_tibble %>% .[,2] %>% unlist() %>% unname()` tipe-tipe CIC tersebut. Dari sudut pandang linguistik bebasis penggunaan dan CxG, tingginya kekerapan dari masing-masing pencontohan spesifik skema [*per-*+AJ], seperti yang termasuk di dalam tipe CIC pada [Tabel \@ref(tab:cic-word-types)](#cic-word-types) sebelumnya, akan (i) lebih menguatkan representasi kata-kata spesifik tersebut dibandingkan skema konstruksionalnya secara umum, ataupun skema bawahan semantisnya, dan (ii) cenderung tidak berkontribusi terhadap produktifitas skema konstruksionalnya [periksa @hoffmann_usage-based_2013, hal. 9]. Tingginya persentase kekerapan dari skema [*per-*+AJ] yang terdiri atas pengulangan tipe kata CIC tersebut mungkin menjadi pemicu rendahnya rasio produktifitas dari skema [*per-*+AJ], karena mengecilkan jumlah tipe serta rasio *hapax*-berbanding-kekerapan skemanya secara menyeluruh. 
+
+# Penutup
+
+Makalah ini telah membahas unsur penggunaan skema konstruksional kata kerja kausatif [*per-*+AJ] di BInd. Unsur-unsur ini meliputi unsur formal dan semantis. Pada tataran formal, makalah ini menemukenali jumlah tipe, jumlah *hapax* dan kekerapan dari tipe-tipe kata yang mencontohkan skema konstruksional tersebut. Berdasarkan jumlah tipe dan *hapax*-nya secara umum, skema [*per-*+AJ] dapat dikatakan tidak begitu produktif untuk menghasilkan kata-kata baru. Pembahasan lebih rinci terkait unsur semantis skema [*per*-+AJ] berdasarkan tipe semantis ajektiva dasarnya juga dibahas pada makalah ini. Pembahasan pada tataran semantis ini menunjukkan bahwa skema bawahan semantis skema [*per-*+AJ] juga tidak begitu produktif setakat ini, terlepas dari ditemukannya hubungan positif dan kuat antara perluasan suatu skema bawahan semantis (atas dasar *hapax*-nya) dan jumlah tipe dari skema bawahan tersebut yang telah ada sebelumnya.
+
+Selanjutnya, makalah ini juga menunjukkan (cara menentukan) kata-kata yang lazim muncul di dalam korpus sebagai pencontohan skema [*per-*+AJ] secara umum, beserta tipe semantisnya. Data ini bisa digunakan sebagai masukan untuk pengajaran BInd bagi penutur asing terkait pencontohan khas (prototipikal) dari suatu konstruksi morfologis di dalam korpus. Terdapat beberapa unsur pemakaian dari skema [*per-*+AJ] yang tidak dibahas pada makalah ini, tapi telah disebutkan sekilas pada [sub-bagian \@ref(sneddon)](#sneddon). Namun demikian, makalah ini diharapkan dapat **memperluas** pemahaman pemerhati dan peneliti BInd, khususnya terkait beberapa unsur pemakaian skema konstruksional morfologis [*per-*+AJ] di BInd. Akhir kata, makalah ini diharapkan dapat **memperkaya** khasanah kajian morfologi di BInd yang telah ada sebelumnya, dengan menyisipkan (i) unsur metodologis termutakhir dari Linguistik Korpus dan (ii) wawasan linguistik teoretis kontemporer berdasarkan penggunaan, seperti Tatabahasa Konstruksional.
+
+# Daftar pustaka {-}
