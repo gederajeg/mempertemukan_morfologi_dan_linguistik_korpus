@@ -413,7 +413,7 @@ tibble(`Rasio kekerapan/tipe`=(per_adj_base_combined %>%
 
 Angka di dalam tanda kurung pada kolom **`Pencontohan CIC skema`** **`[`***__per-__***`+AJ]`** menunjukkan kekerapan kemunculan kata tersebut. [Gambar \@ref(fig:cic-sem-plot)](#cic-sem-plot) berikut menempatkan persebaran tipe kata lazim pada [Tabel \@ref(tab:cic-word-types)](#cic-word-types) sebelumnya berdasarkan tipe semantisnya.
 
-```{r cic-sem-plot, fig.cap="Persebaran tipe semantis dari tipe CIC untuk konstruksi [*per-*+AJ]"}
+```{r cic-sem-plot, fig.cap="Persebaran tipe semantis dari tipe CIC untuk konstruksi [*per-*+AJ]", fig.width=8}
 df <- per_adj_base_combined %>% 
   filter(n>=per_adj_CIC_limit) %>% 
   group_by(sem) %>% 
