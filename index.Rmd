@@ -15,7 +15,7 @@ output:
   bookdown::word_document2:
     fig_caption: true
     fig_width: 6
-bibliography: 'My Library.bib'
+bibliography: 'My_Library.bib'
 link-citations: true
 csl: 'apa-old-doi-prefix.csl'
 ---
@@ -33,7 +33,6 @@ suppressMessages(library(tidyverse))
 suppressMessages(library(readxl))
 suppressMessages(library(stringr))
 suppressMessages(library(bookdown))
-rm(list = ls())
 load('memper_leipzig_main_data.RData')
 ```
 
@@ -46,6 +45,8 @@ Sitiran:
 
 Rajeg, G. P. W., & Rajeg, I. M. (2017). Mempertemukan morfologi dan linguistik korpus: Kajian konstruksi pembentukan kata kerja [*per*-+Ajektiva] dalam Bahasa Indonesia. In I. N. Sudipa & M. S. Satyawati (Ed.), *Rona Bahasa: Buku persembahan kepada Prof. Dr. Aron Meko Mbete memasuki masa purnatugas* (pp. 288–327). Denpasar, Bali, Indonesia: Swasta Nulus. https://doi.org/10.4225/03/5a0627de02453
 
+<a href="https://github.com/gederajeg/mempertemukan_morfologi_dan_linguistik_korpus"><img src="https://png.icons8.com/ios-glyphs/50/000000/github.png"></img></a>
+
 ----------------
 
 # Abstract {-}
@@ -56,7 +57,7 @@ This contribution presents a corpus-based, constructional account on one of the 
 
 -------------------
 
-# Pengantar {#intro}
+# Pengantar^[Penulisan makalah ini didanai sepenuhnya oleh *Monash International Postgraduate Research Scholarships* (MIPRS) dan *Monash Graduate Scholarships* (MGS) yang diberikan kepada penulis pertama ketika menyelesaikan pendidikan doktoral di Monash University, Australia.] {#intro}
 
 Makalah ini^[Lisensi untuk R Notebook ini adalah *Creative Common License* [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Untuk mengunduh .Rmd file dari notebook ini, klik tombol `Code` di pojok kanan atas kemudian pilih `Download Rmd`.] mengulas beberapa unsur kajian morfologi yang dapat dilakukan dan diungkap melalui Linguistik Korpus (LKorp) [mis. @baayen_corpus_2009; @stefanowitsch_corpus_2017, hal. 276]. Sebagai contoh awal, satu konstruksi yang akan dikaji adalah skema konstruksional pembentukan kata kerja transitif kausatif di Bahasa Indonesia (BInd), yaitu [*per*+Ajektiva] (selanjutnya disingkat [*per*+AJ]). Kata kerja kausatif yang mencontohkan skema ini secara skematis memiliki fungsi/makna 'meningkatkan ciri atau sifat, seperti yang dinyatakan oleh ajektivanya, yang (sudah) dimiliki oleh objek' [@sneddon_indonesian_2010, hal. 103] ([sub-bagian \@ref(sneddon)](#sneddon) memberikan pemaparan lebih jauh terkait skema ini). Terdapat tiga hal yang akan coba dijelajahi dengan metode LKorp terkait penggunaan skema [*per-*+AJ] dalam korpus.
 
@@ -142,7 +143,7 @@ Bagian ini akan memaparkan (i) sumber data yang digunakan serta (ii) langkah-lan
 
 ## Sumber data {#korpus}
 
-Data korpus BInd yang digunakan pada makalah ini adalah *Indonesian Leipzig Corpora*. Korpus ini merupakan bagian dari *Leipzig Corpora Collection* [@biemann_leipzig_2007; @quasthoff_indonesian_2013]^[Periksa pranala berikut: http://corpora2.informatik.uni-leipzig.de/download.html] dan dapat diunduh secara cuma-cuma. Korpus BInd ini tersimpan dalam bentuk teks kalimat acak yang dikumpulkan melalui internet. Jumlah kalimat dari masing-masing berkas teks yang saat ini tersedia untuk *Indonesian Leipzig Corpora* ditampilkan pada [Tabel \@ref(tab:leipzig-corpus)](#leipzig-corpus) berikut.
+Data korpus BInd yang digunakan pada makalah ini adalah *Indonesian Leipzig Corpora*. Korpus ini merupakan bagian dari *Leipzig Corpora Collection* [@biemann_leipzig_2007; @quasthoff_indonesian_2013]^[Periksa pranala berikut: http://corpora2.informatik.uni-leipzig.de/download.html] dan dapat diunduh secara cuma-cuma. Korpus BInd ini tersimpan dalam bentuk teks kalimat acak yang dikumpulkan melalui internet. Jumlah kalimat dan kata dari masing-masing berkas teks yang saat ini tersedia untuk *Indonesian Leipzig Corpora* ditampilkan pada [Tabel \@ref(tab:leipzig-corpus)](#leipzig-corpus) berikut.
 
 ```{r leipzig-corpus}
 corpus_total_words <- leipzig_count %>% .$Size %>% str_replace_all(",", "") %>% as.numeric() %>% sum() %>% format(big.mark=".", decimal.mark=",")
@@ -152,7 +153,7 @@ leipzig_count %>%
   knitr::kable(caption="Jumlah keseluruhan kata dari masing-masing berkas korpus pada *Indonesian Leipzig Corpora*.", row.names = T)
 ```
 
-Ukuran keseluruhan dari tiga belas berkas korpus yang digunakan berjumlah `r corpus_total_words` kata.
+Jumlah kalimat dari masing-masing korpus ditunjukkan dalam bagian nama berkas korpus tersebut (mis. `..._1M-sentences` mengindikasikan korpus berjumlah satu juta kalimat). Ukuran keseluruhan dari tiga belas berkas korpus yang digunakan berjumlah `r corpus_total_words` kata.
 
 ## Pengolahan data {#pengolahan}
 ### Penggalian kata-kata potensial pencontohan dari skema [*per*+AJ]
@@ -170,7 +171,7 @@ per_words_corpus %>% arrange(desc(n)) %>% top_n(5,n) %>%
   knitr::kable(caption = "Hasil awal lima teratas dari pencarian kata-kata yang diawali dengan *memper-*, *diper-*, dan *terper-* di dalam korpus.", row.names = T)
 ```
 
-Yang penting dicatat adalah RegEx yang dirancang hanya merinci tiga awalan diatesis yang langsung diikuti oleh *per-*, bukan kata dasarnya secara spesifik; calon kata dasarnya secara lebih luas ingin ditangkap dengan karakter alfabetis pada bagian `[a-z-]{3,}` dari pola pencariannya. Karena itulah pada [Tabel \@ref(tab:per-word-corpus)](#per-word-corpus) muncul kata-kata seperti **diperlukan** dan **mempersiapkan** yang tidak termasuk ke dalam bahasan makalah ini.
+Yang penting dicatat adalah RegEx yang dirancang hanya merinci tiga awalan diatesis yang langsung diikuti oleh *per-*, bukan kata dasarnya secara spesifik; calon kata dasarnya secara lebih luas ingin ditangkap dengan karakter alfabetis pada bagian `[a-z-]{3,}` dari pola pencariannya. Karena itulah pada [Tabel \@ref(tab:per-word-corpus)](#per-word-corpus) muncul kata-kata seperti **diperlukan** dan **memperhatikan** yang tidak termasuk ke dalam bahasan makalah ini.
 
 ### Pemecahan struktur morfologis kata dengan *MorphInd*
 
