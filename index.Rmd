@@ -20,7 +20,8 @@ link-citations: true
 csl: 'apa-old-doi-prefix.csl'
 ---
 
-```{r global-options, include=FALSE, message=FALSE, warning=FALSE}
+```{r global-options, include=TRUE, message=FALSE, warning=FALSE}
+# global option chunck
 knitr::opts_chunk$set(fig.width=6, 
                       fig.asp=0.618,
                       fig.retina = 2,
@@ -29,6 +30,7 @@ knitr::opts_chunk$set(fig.width=6,
 options(figcap.prefix = "Figure", figcap.sep = ":", figcap.prefix.highlight = "**")
 options(tabcap.prefix = "Table", tabcap.sep = ":", tabcap.prefix.highlight = "**")
 
+# load the required packages and data
 suppressMessages(library(tidyverse))
 suppressMessages(library(readxl))
 suppressMessages(library(stringr))
