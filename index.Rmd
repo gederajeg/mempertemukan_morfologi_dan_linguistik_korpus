@@ -7,6 +7,7 @@ output:
     fig_caption: true
     fig_width: 6
     toc: true
+    toc_float: true
     number_sections: yes
     code_folding: hide
   bookdown::html_document2:
@@ -177,7 +178,7 @@ Yang penting dicatat adalah RegEx yang dirancang hanya merinci tiga awalan diate
 
 ### Pemecahan struktur morfologis kata dengan *MorphInd*
 
-Untuk mengetahui kata mana yang mencontohkan pola [*per-*+AJ] dari daftar kata pada [Tabel \@ref(tab:per-word-corpus)](#per-word-corpus), penulis menjalankan naskah pemrograman yang disebut *MorphInd* [@larasati_indonesian_2011]. *MorphInd* dirancang untuk membedah struktur internal kata dalam BInd. Program ini dapat juga dijalankan melalui *R*^[Penulis berterima kasih kepada Karlina Denistia (University of Tübingen, Jerman) yang dengan senang hati berbagi contoh menjalankan *MorphInd* melalui *R*.]. Jadi, ketika *MorphInd* diberikan masukan kata seperti **memperkuat**, *MorphInd* akan memecah awalan dan kata dasarnya, sekaligus menandai kelas kata dari kata dasarnya. Keluaran pembedahan kata dari *MorphInd* ditunjukkan pada kolom **`Keluaran MorphInd`** pada [Tabel \@ref(tab:per-adj)](#per-adj) berikut.
+Untuk mengetahui kata mana yang mencontohkan pola [*per-*+AJ] dari daftar kata pada [Tabel \@ref(tab:per-word-corpus)](#per-word-corpus), penulis menjalankan naskah pemrograman yang disebut *MorphInd* [@larasati_indonesian_2011]. *MorphInd* dirancang untuk membedah struktur internal kata dalam BInd. Program ini dapat juga dijalankan melalui *R*^[Penulis berterima kasih kepada [Karlina Denistia](http://uni-tuebingen.academia.edu/karlinadenistia) (Eberhard Karls University of Tübingen, Jerman) yang dengan senang hati berbagi contoh menjalankan *MorphInd* melalui *R*.]. Jadi, ketika *MorphInd* diberikan masukan kata seperti **memperkuat**, *MorphInd* akan memecah awalan dan kata dasarnya, sekaligus menandai kelas kata dari kata dasarnya. Keluaran pembedahan kata dari *MorphInd* ditunjukkan pada kolom **`Keluaran MorphInd`** pada [Tabel \@ref(tab:per-adj)](#per-adj) berikut.
 
 ```{r per-adj}
  per_adj %>%
